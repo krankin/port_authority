@@ -9,15 +9,17 @@ class PortServer < GServer
  def initialize(port, *args)
    super(port,*args)
  end
- def serve(io)
-  puts "hello"
-  io.puts(io)
+ def connecting(client)
+   puts " test Connection from " + client.to_s
  end
+ def serve(io)
+   puts io.readline
+ end
+
 end
 
 server = PortServer.new(10100)
 server.audit = true
 server.start
 
-while !server.stopped? do
-end
+server.join
